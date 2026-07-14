@@ -10,8 +10,13 @@ import {
 } from "@/lib/appointment-schema";
 import Input from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { supabase } from "@/lib/supabase/client";
 
 export default function NewAppointmentPage() {
+    const router = useRouter();
+const [submitError, setSubmitError] = useState<string | null>(null);
   const {
     register,       // her input'u forma "kaydetmek" için kullanılır
     handleSubmit,    // submit olayını yönetir, önce validation çalıştırır
@@ -26,9 +31,27 @@ export default function NewAppointmentPage() {
   // Form geçerli (valid) olduğunda çalışacak fonksiyon.
   // Şimdilik sadece console.log ile veriyi gösteriyoruz, henüz Supabase'e
   // bağlı değiliz - o Gün 14'te olacak.
-  function onSubmit(data: AppointmentFormValues) {
-    console.log("Form verisi:", data);
+  async function onSubmit(data: AppointmentFormValues) {
+  setSubmitError(null);
+
+  const { error } = await supabase.from("appointments").insert({
+    title: data.title,
+    appointment_date: data.appointment_date,
+    appointment_time: data.appointment_time,
+    location: data.location || null,
+    description: data.description || null,
+    status: data.status,
+  });
+
+  if (error) {
+    setSubmitError(
+      "Randevu kaydedilirken bir hata oluştu. Lütfen tekrar deneyin."
+    );
+    return;
   }
+
+  router.push("/appointments");
+}
 
   return (
     <div className="max-w-lg">
@@ -37,6 +60,11 @@ export default function NewAppointmentPage() {
       </h1>
 
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
+        {submitError && (
+  <p className="text-sm text-red-600 bg-red-50 border border-red-200 rounded-md px-3 py-2">
+    {submitError}
+  </p>
+)}
         <div>
           <Input
             label="Başlık"
