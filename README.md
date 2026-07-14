@@ -56,6 +56,24 @@ src/
 | Randevular | `/appointments` | Mock verilerle listeleniyor |
 | Yeni Randevu | `/appointments/new` | Form + validation çalışıyor |
 | Kişiler, Kurumlar, Takvim, Raporlar, Ayarlar | ilgili yollar | İskelet halinde, içerik 3. haftada eklenecek |
+## Veritabanı Şeması
+
+Supabase üzerinde oluşturulan `appointments` tablosu:
+
+| Alan | Tip | Açıklama |
+|---|---|---|
+| `id` | uuid | Birincil anahtar, otomatik üretilir |
+| `title` | text (zorunlu) | Randevu başlığı |
+| `description` | text | Randevu açıklaması |
+| `appointment_date` | date (zorunlu) | Randevu tarihi |
+| `appointment_time` | time (zorunlu) | Randevu saati |
+| `status` | text (varsayılan: planned) | planned / completed / cancelled / postponed |
+| `location` | text | Randevu konumu |
+| `is_active` | boolean (varsayılan: true) | Soft delete için — false olan kayıtlar listelenmez |
+| `created_at` | timestamp | Kaydın oluşturulma zamanı |
+| `updated_at` | timestamp | Son güncellenme zamanı |
+
+**Güvenlik notu:** Tablo şu an Row Level Security (RLS) olmadan oluşturuldu; ayrıntılı RLS politikaları ileriki bir aşamada eklenecek. Şu an için `anon` anahtarla tabloya tam erişim mümkün, bu geliştirme aşaması için kabul edilebilir ama production öncesi mutlaka ele alınması gereken bir güvenlik notu.
 
 ## Bilinen Eksikler / Devam Eden İşler
 
