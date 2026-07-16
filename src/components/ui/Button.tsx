@@ -11,8 +11,8 @@ export default function Button({
   ...props
 }: ButtonProps) {
   const variantStyles = {
-    primary: "bg-zinc-900 text-white hover:bg-zinc-700",
-    secondary: "bg-zinc-100 text-zinc-900 hover:bg-zinc-200",
+    primary: "bg-[#0a1f3d] text-white hover:bg-[#0d2a52]",
+    secondary: "bg-blue-50 text-[#0a1f3d] hover:bg-blue-100",
     danger: "bg-red-600 text-white hover:bg-red-700",
   };
 

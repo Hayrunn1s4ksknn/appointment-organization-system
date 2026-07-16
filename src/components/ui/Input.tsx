@@ -11,7 +11,7 @@ export default function Input({ label, className = "", ...props }: InputProps) {
         <label className="text-sm font-medium text-zinc-700">{label}</label>
       )}
       <input
-        className={`border border-zinc-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-400 ${className}`}
+        className={`border border-zinc-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#0a1f3d]/40 focus:border-[#0a1f3d] ${className}`}
         {...props}
       />
     </div>
