@@ -1,5 +1,7 @@
 import SimpleTable from "@/components/ui/SimpleTable";
 import Badge from "@/components/ui/Badge";
+import Link from "next/link";
+import DeactivateButton from "@/components/appointments/DeactivateButton";
 import { supabase } from "@/lib/supabase/client";
 
 type Appointment = {
@@ -65,6 +67,20 @@ export default async function AppointmentsPage() {
               header: "Durum",
               accessor: (row) => (
                 <Badge text={row.status} color={statusColor(row.status)} />
+              ),
+            },
+            {
+              header: "İşlemler",
+              accessor: (row) => (
+                <div className="flex items-center gap-2">
+                  <Link
+                    href={`/appointments/${row.id}/edit`}
+                    className="text-sm text-blue-600 hover:underline"
+                  >
+                    Düzenle
+                  </Link>
+                  <DeactivateButton id={row.id} />
+                </div>
               ),
             },
           ]}
