@@ -1,11 +1,8 @@
 "use client";
-// "use client" gerekli çünkü bu component tarayıcıda çalışan bir hook (usePathname)
-// kullanıyor - hangi sayfada olduğumuzu anlamak için.
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-// Menüde göstereceğimiz her link için bir isim ve gideceği adres tanımlıyoruz.
 const menuItems = [
   { name: "Dashboard", href: "/dashboard" },
   { name: "Randevular", href: "/appointments" },
@@ -23,12 +20,10 @@ export default function Sidebar({
   isOpen: boolean;
   onClose: () => void;
 }) {
-  // usePathname(): tarayıcının şu an hangi URL'de olduğunu döndürür (örn: "/dashboard")
   const pathname = usePathname();
 
   return (
     <>
-      {/* Mobilde sidebar açıkken arkada beliren karartma - tıklanınca sidebar kapanır */}
       {isOpen && (
         <div
           onClick={onClose}
@@ -37,11 +32,10 @@ export default function Sidebar({
       )}
 
       <aside
-        className={`fixed z-40 md:static md:z-auto top-0 left-0 h-screen w-64 bg-[#0a1f3d] text-zinc-100 flex flex-col relative overflow-hidden
-          transition-transform duration-200 ease-in-out
-          ${isOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0`}
+        className={`fixed z-40 md:static md:z-auto top-0 left-0 h-screen w-64 bg-[#0a1f3d] text-zinc-100 flex flex-col overflow-hidden transition-transform duration-200 ease-in-out ${
+          isOpen ? "translate-x-0" : "-translate-x-full"
+        } md:translate-x-0`}
       >
-        {/* Arka plandaki ağ/nokta deseni - Mersin Teknopark temasından ilham alındı */}
         <svg
           className="absolute inset-0 w-full h-full opacity-20 pointer-events-none"
           viewBox="0 0 256 800"
@@ -86,7 +80,6 @@ export default function Sidebar({
               RANDEVU PANELİ
             </div>
           </div>
-          {/* Mobilde sidebar içinde kapatma butonu */}
           <button
             onClick={onClose}
             className="md:hidden text-blue-200/70 hover:text-white p-1"
@@ -107,7 +100,6 @@ export default function Sidebar({
 
         <nav className="relative flex-1 px-3 py-4 space-y-1">
           {menuItems.map((item) => {
-            // Şu anki sayfa bu linkle aynıysa "aktif" stilini uygula
             const isActive = pathname === item.href;
             return (
               <Link
