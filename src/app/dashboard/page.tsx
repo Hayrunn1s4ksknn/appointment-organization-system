@@ -3,6 +3,7 @@ import Card from "@/components/ui/Card";
 import Badge from "@/components/ui/Badge";
 import Button from "@/components/ui/Button";
 import SimpleTable from "@/components/ui/SimpleTable";
+import Link from "next/link";
 import {
   dashboardSummary,
   recentAppointments,
@@ -42,7 +43,9 @@ export default function DashboardPage() {
     <div>
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-2xl font-semibold text-zinc-900">Dashboard</h1>
-        <Button variant="primary">Yeni Randevu</Button>
+        <Link href="/appointments/new">
+  <Button variant="primary">Yeni Randevu</Button>
+</Link>
       </div>
 
       {/* Özet kartlar - artık mock-data.ts'ten geliyor */}
