@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const menuItems = [
+  { name: "Anasayfa", href: "/" },
   { name: "Dashboard", href: "/dashboard" },
   { name: "Randevular", href: "/appointments" },
   { name: "Kişiler", href: "/contacts" },
@@ -72,14 +73,34 @@ export default function Sidebar({
         </svg>
 
         <div className="relative px-6 py-5 border-b border-white/10 flex items-center justify-between">
-          <div>
-            <div className="text-[11px] font-medium tracking-widest text-blue-200/80">
-              MERSİN TEKNOPARK
+          <Link href="/" className="flex items-center gap-3 group">
+            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-white/10 group-hover:bg-white/20 transition-colors">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5 text-white"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={1.75}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                />
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9 16l2 2 4-4" />
+              </svg>
             </div>
-            <div className="text-lg font-bold text-white leading-tight">
-              RANDEVU PANELİ
+            <div>
+              <div className="text-[11px] font-medium tracking-widest text-blue-200/80">
+                MERSİN TEKNOPARK
+              </div>
+              <div className="text-lg font-bold text-white leading-tight">
+                RANDEVU PANELİ
+              </div>
             </div>
-          </div>
+          </Link>
+
           <button
             onClick={onClose}
             className="md:hidden text-blue-200/70 hover:text-white p-1"
