@@ -1,63 +1,65 @@
 # Randevu Takip ve Organizasyon Sistemi
-
-40 günlük staj projesi. Next.js, TypeScript, Supabase, Vercel kullanılarak geliştirilmektedir.
+Staj projesi. Next.js, TypeScript, Supabase, Vercel kullanılarak geliştirilmektedir.
 
 ## Canlı Demo
-
 https://appointment-organization-system.vercel.app
 
 ## Kullanılan Teknolojiler
-
 - **Next.js 16** (App Router) — React tabanlı web framework
 - **TypeScript** — tip güvenli JavaScript
 - **Tailwind CSS** — utility-first stil kütüphanesi
 - **React Hook Form** — form state yönetimi
 - **Zod** — şema tabanlı veri doğrulama
-- **Supabase** — PostgreSQL tabanlı backend/veritabanı (entegrasyon 3. haftada tamamlanacak)
+- **Supabase** — PostgreSQL tabanlı backend/veritabanı
 - **Vercel** — deployment/hosting
 - **GitHub** — versiyon kontrolü
 
 ## Kurulum
-
 ```bash
 git clone https://github.com/Hayrunn1s4ksknn/appointment-organization-system.git
 cd appointment-organization-system
 npm install
 npm run dev
 ```
-
 Proje `http://localhost:3000` adresinde çalışmaya başlar.
 
 ## Proje Yapısı
 ```
 src/
-  app/                  → Sayfalar (App Router)
-    dashboard/          → Genel özet ekranı
-    appointments/       → Randevu listesi
-    appointments/new/   → Yeni randevu ekleme formu
-    contacts/           → Kişiler (iskelet)
-    organizations/      → Kurumlar (iskelet)
-    calendar/           → Takvim (iskelet)
-    reports/            → Raporlar (iskelet)
-    settings/           → Ayarlar (iskelet)
+  app/                          → Sayfalar (App Router)
+    dashboard/                  → Genel özet ekranı
+    appointments/                → Randevu listesi (Supabase'den canlı veri)
+    appointments/new/            → Yeni randevu ekleme formu
+    appointments/[id]/edit/      → Randevu düzenleme sayfası
+    contacts/                    → Kişiler (iskelet)
+    organizations/                → Kurumlar (iskelet)
+    calendar/                    → Takvim (iskelet)
+    reports/                      → Raporlar (iskelet)
+    settings/                    → Ayarlar (iskelet)
   components/
-    layout/             → Sidebar, Header, MainLayout
-    ui/                 → Button, Card, Input, Badge, SimpleTable
+    layout/                      → Sidebar, Header, MainLayout
+    appointments/                 → EditAppointmentForm, DeactivateButton
+    ui/                           → Button, Card, Input, Badge, SimpleTable
   lib/
-    mock-data.ts         → Geliştirme aşamasında kullanılan örnek veriler
-    appointment-schema.ts → Randevu formu için Zod doğrulama şeması
+    mock-data.ts                  → Dashboard özet kartları için örnek veriler
+    appointment-schema.ts          → Randevu formu için Zod doğrulama şeması
+    supabase/client.ts             → Supabase bağlantı istemcisi
 ```
 
 ## Sayfalar
-
 | Sayfa | Yol | Durum |
 |---|---|---|
-| Dashboard | `/dashboard` | Mock verilerle çalışıyor |
-| Randevular | `/appointments` | Mock verilerle listeleniyor |
-| Yeni Randevu | `/appointments/new` | Form + validation çalışıyor |
-| Kişiler, Kurumlar, Takvim, Raporlar, Ayarlar | ilgili yollar | İskelet halinde, içerik 3. haftada eklenecek |
-## Veritabanı Şeması
+| Ana Sayfa | `/` | Tamamlandı — kurumsal karşılama ekranı |
+| Dashboard | `/dashboard` | Özet kartlar mock veriyle, "Son Randevular" tablosu mock veriyle çalışıyor |
+| Randevular | `/appointments` | Tamamlandı — Supabase'den canlı veri, düzenleme/pasifleştirme dahil |
+| Yeni Randevu | `/appointments/new` | Tamamlandı — form, validation ve Supabase kaydı çalışıyor |
+| Randevu Düzenle | `/appointments/[id]/edit` | Tamamlandı — mevcut kayıt güncelleniyor |
+| Kişiler, Kurumlar, Takvim, Raporlar, Ayarlar | ilgili yollar | İskelet halinde, içerik ileriki bir aşamada eklenecek |
 
+## Tasarım
+Arayüz, Mersin Teknopark kurumsal kimliğine uygun özel bir tema ile tasarlanmıştır: koyu lacivert zemin, ağ/nokta deseni ve tutarlı vurgu renkleri sidebar, butonlar, input alanları ve kartlarda kullanılmaktadır. Sidebar, küçük ekranlarda hamburger menüye dönüşen mobil uyumlu bir yapıya sahiptir.
+
+## Veritabanı Şeması
 Supabase üzerinde oluşturulan `appointments` tablosu:
 
 | Alan | Tip | Açıklama |
@@ -73,14 +75,13 @@ Supabase üzerinde oluşturulan `appointments` tablosu:
 | `created_at` | timestamp | Kaydın oluşturulma zamanı |
 | `updated_at` | timestamp | Son güncellenme zamanı |
 
-**Güvenlik notu:** Tablo şu an Row Level Security (RLS) olmadan oluşturuldu; ayrıntılı RLS politikaları ileriki bir aşamada eklenecek. Şu an için `anon` anahtarla tabloya tam erişim mümkün, bu geliştirme aşaması için kabul edilebilir ama production öncesi mutlaka ele alınması gereken bir güvenlik notu.
+
 
 ## Bilinen Eksikler / Devam Eden İşler
+- `appointments` tablosunda Row Level Security (RLS) henüz etkin değil.
+- Dashboard'daki özet kartlar ve "Son Randevular" tablosu hâlâ mock veriyle çalışıyor, Supabase'e bağlı değil.
+- Kişiler, Kurumlar, Takvim, Raporlar ve Ayarlar sayfaları henüz iskelet halinde.
 
-- Sidebar, mobil görünümde henüz hamburger menüye dönüştürülmedi (küçük ekranlarda sabit ve geniş kalıyor).
-- Supabase veritabanı bağlantısı henüz yapılmadı; tüm veriler şu an mock (sahte) veri.
-- Randevu formu şu an sadece console.log ile test ediliyor, henüz bir veritabanına kayıt atmıyor.
+## Tamamlanan İşler (1–3. Hafta)
+Geliştirme ortamı kurulumu, GitHub/Vercel/Supabase entegrasyonu, panel arayüz iskeleti, temel UI bileşenleri, randevu formu ve validation, Supabase bağlantısı, `appointments` tablosu ve randevu listeleme/ekleme/düzenleme/pasifleştirme (CRUD) işlemleri tamamlandı.
 
-## 3. Hafta Planı
-
-Supabase projesinin Next.js uygulamasına bağlanması, `appointments` tablosunun oluşturulması ve randevu listeleme/ekleme/düzenleme/pasifleştirme (CRUD) işlemlerinin gerçek veritabanı ile tamamlanması.
