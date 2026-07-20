@@ -75,13 +75,10 @@ Supabase üzerinde oluşturulan `appointments` tablosu:
 | `created_at` | timestamp | Kaydın oluşturulma zamanı |
 | `updated_at` | timestamp | Son güncellenme zamanı |
 
-
-
 ## Bilinen Eksikler / Devam Eden İşler
-- `appointments` tablosunda Row Level Security (RLS) henüz etkin değil.
+- `appointments` tablosunda Row Level Security (RLS) etkinleştirildi (select/insert/update için açık politikalar tanımlı); giriş sistemi eklendiğinde politikalar kullanıcıya özel erişimle sıkılaştırılacak.
 - Dashboard'daki özet kartlar ve "Son Randevular" tablosu hâlâ mock veriyle çalışıyor, Supabase'e bağlı değil.
 - Kişiler, Kurumlar, Takvim, Raporlar ve Ayarlar sayfaları henüz iskelet halinde.
 
 ## Tamamlanan İşler (1–3. Hafta)
-Geliştirme ortamı kurulumu, GitHub/Vercel/Supabase entegrasyonu, panel arayüz iskeleti, temel UI bileşenleri, randevu formu ve validation, Supabase bağlantısı, `appointments` tablosu ve randevu listeleme/ekleme/düzenleme/pasifleştirme (CRUD) işlemleri tamamlandı.
-
+Geliştirme ortamı kurulumu, GitHub/Vercel/Supabase entegrasyonu, panel arayüz iskeleti, temel UI bileşenleri, randevu formu ve validation, Supabase bağlantısı, `appointments` tablosu, randevu listeleme/ekleme/düzenleme/pasifleştirme (CRUD) işlemleri ve Row Level Security (RLS) tamamlandı.
